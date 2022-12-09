@@ -1,5 +1,3 @@
-import jsonData from './manga-info.json';
-
 export type MangaChapter = {
   name: string;
   total: number;
@@ -11,6 +9,12 @@ export type MangaInfo = {
   chapters: MangaChapter[];
 }
 
-const useData = (): MangaInfo[] => jsonData as MangaInfo[];
+const fetchMangaInfoFromAliOss = async () => {
 
-export default useData;
+};
+
+const useMangaInfo = (): MangaInfo[] => {
+
+};
+
+export default useMangaInfo;

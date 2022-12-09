@@ -1,7 +1,7 @@
 import { createSignal, For } from 'solid-js';
 import type { Component, JSX } from 'solid-js';
 import UrlTransformer from '$src/data/url-transformer';
-import useData, { MangaInfo } from '$src/data/use-data';
+import useData, { MangaInfo } from '$src/data/use-manga-info';
 import MangaDetailDrawer from './components/detail-drawer';
 import SearchPanel from './components/search-panel';
 import styles from './style.module.less';

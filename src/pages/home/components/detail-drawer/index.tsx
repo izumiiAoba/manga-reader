@@ -3,7 +3,7 @@ import {
 } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import UrlTransformer from '$src/data/url-transformer';
-import { MangaInfo } from '$src/data/use-data';
+import { MangaInfo } from '$src/data/use-manga-info';
 import styles from './style.module.less';
 
 type Props = {
