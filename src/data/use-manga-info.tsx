@@ -18,9 +18,10 @@ const DATA_FILE: string = 'manga-info.json';
 
 const fetchMangaInfoFromAliOss = async (): Promise<MangaInfo[]> => {
   const response = await fetch(
-    `${OSS_BUCKET}/${DATA_FILE}`,
+    `https://${OSS_BUCKET}/${DATA_FILE}`,
     {
       method: 'POST',
+      headers: { Accept: 'application/json' },
     },
   );
   console.log(response);

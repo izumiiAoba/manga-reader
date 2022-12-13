@@ -1,24 +1,24 @@
 import { createSignal, For } from 'solid-js';
 import type { Component, JSX } from 'solid-js';
 import UrlTransformer from '$src/data/url-transformer';
-import useData, { MangaInfo } from '$src/data/use-manga-info';
+import { MangaInfo, useMangaInfo } from '$src/data/use-manga-info';
 import MangaDetailDrawer from './components/detail-drawer';
 import SearchPanel from './components/search-panel';
 import styles from './style.module.less';
 
-const DEFAULT_MANGA_LIST = useData();
-
 const Home: Component = () => {
-  const [mangaList, setMangaList] = createSignal(DEFAULT_MANGA_LIST);
+  const mangaList = useMangaInfo();
+
+  const [searchedManga, setSearchedManga] = createSignal(mangaList());
   const [currentMangaDetail, setCurrentMangaDetail] = createSignal<MangaInfo | undefined>();
 
   const handleSearch = (searchValue: string): void => {
     if (!searchValue) {
-      setMangaList(DEFAULT_MANGA_LIST);
+      setSearchedManga(mangaList());
       return;
     }
-    const nextMangaList = mangaList().filter(({ title }) => title.includes(searchValue));
-    setMangaList(nextMangaList);
+    const nextMangaList = (mangaList() ?? []).filter(({ title }) => title.includes(searchValue));
+    setSearchedManga(nextMangaList);
   };
 
   const openMangaDetail = (info: MangaInfo): void => {
@@ -31,7 +31,7 @@ const Home: Component = () => {
 
   const renderMangaBaseInfoList = (): JSX.Element => (
     <div class={styles.baseInfoList}>
-      <For each={mangaList()}>
+      <For each={searchedManga()}>
         { (info) => {
           const latestChapter = info.chapters[info.chapters.length - 1];
           return (
