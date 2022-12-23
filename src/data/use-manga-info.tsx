@@ -17,15 +17,22 @@ const OSS_BUCKET: string = import.meta.env.VITE_ALI_OSS_BUCKET;
 const DATA_FILE: string = 'manga-info.json';
 
 const fetchMangaInfoFromAliOss = async (): Promise<MangaInfo[]> => {
-  const response = await fetch(
-    `https://${OSS_BUCKET}/${DATA_FILE}`,
-    {
-      method: 'POST',
-      headers: { Accept: 'application/json' },
-    },
-  );
-  console.log(response);
-  return [];
+  try {
+    const response = await fetch(
+      `https://${OSS_BUCKET}/${DATA_FILE}`,
+      {
+        method: 'GET',
+        headers: { Accept: 'application/json' },
+      },
+    );
+    if (response.status !== 200) throw new Error(`request status is ${response.status}`);
+
+    const responseData = await response.json() as MangaInfo[];
+    return responseData;
+  } catch (error) {
+    console.error('fetch from ali-oss failed', '\n', error);
+    return [];
+  }
 };
 
 const CONTEXT_DEFAULT_PENDING = (() => undefined) as Resource<MangaInfo[]>;
