@@ -7,7 +7,8 @@ import SearchPanel from './components/search-panel';
 import styles from './style.module.less';
 
 const Home: Component = () => {
-  const mangaList = useMangaInfo();
+  const mangaListResource = useMangaInfo();
+  const mangaList = () => mangaListResource() ?? [];
 
   const [searchedManga, setSearchedManga] = createSignal(mangaList());
   const [currentMangaDetail, setCurrentMangaDetail] = createSignal<MangaInfo | undefined>();
@@ -17,15 +18,15 @@ const Home: Component = () => {
       setSearchedManga(mangaList());
       return;
     }
-    const nextMangaList = (mangaList() ?? []).filter(({ title }) => title.includes(searchValue));
+    const nextMangaList = (mangaList()).filter(({ title }) => title.includes(searchValue));
     setSearchedManga(nextMangaList);
   };
 
-  const openMangaDetail = (info: MangaInfo): void => {
+  const openMangaDetailDrawer = (info: MangaInfo): void => {
     setCurrentMangaDetail(info);
   };
 
-  const closeMangaDetail = (): void => {
+  const closeMangaDetailDrawer = (): void => {
     setCurrentMangaDetail(undefined);
   };
 
@@ -35,7 +36,7 @@ const Home: Component = () => {
         { (info) => {
           const latestChapter = info.chapters[info.chapters.length - 1];
           return (
-            <div class={styles.card} onClick={[openMangaDetail, info]}>
+            <div class={styles.card} onClick={[openMangaDetailDrawer, info]}>
               <img
                 class={styles.cover}
                 src={UrlTransformer.getCover(info.id)}
@@ -61,7 +62,7 @@ const Home: Component = () => {
 
       <MangaDetailDrawer
         info={currentMangaDetail()}
-        onClose={closeMangaDetail}
+        onClose={closeMangaDetailDrawer}
       />
     </div>
   );
