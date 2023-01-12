@@ -10,7 +10,7 @@ const useMangaListWithSearch = () => {
   const mangaListResource = useMangaInfo();
   const allMangaList = () => mangaListResource() ?? [];
 
-  const [searchResult, setSearchResult] = createSignal(allMangaList());
+  const [searchResult, setSearchResult] = createSignal<MangaInfo[]>(allMangaList());
 
   const handleSearch = (searchValue: string): void => {
     if (!searchValue) {

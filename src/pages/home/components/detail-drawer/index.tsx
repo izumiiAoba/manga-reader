@@ -3,6 +3,7 @@ import {
   Component, JSX, Show, For,
 } from 'solid-js';
 import { Portal } from 'solid-js/web';
+import ImgIdCoder from '$src/data/img-id-coder';
 import UrlTransformer from '$src/data/url-transformer';
 import { MangaChapter, MangaInfo } from '$src/data/use-manga-info';
 import { URL_PREFIX } from '$src/router';
@@ -23,7 +24,7 @@ const MangaDetailDrawer: Component<Props> = (props) => {
       { ({ name }, index) => (
         <Link
           class={styles.chapter}
-          href={`${URL_PREFIX}/read/${props.info!.id}/${index()}`}
+          href={`${URL_PREFIX}/read#${ImgIdCoder.encode(props.info!.id, index(), 0)}`}
         >
           { name }
         </Link>

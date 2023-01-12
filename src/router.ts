@@ -9,7 +9,7 @@ const routes: RouteDefinition[] = [
     component: lazy(() => import('./pages/home')),
   },
   {
-    path: '/read/:id/:chapterNum',
+    path: '/read',
     component: lazy(() => import('./pages/reader')),
   },
 ].map((route) => {
