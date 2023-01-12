@@ -1,7 +1,7 @@
 import type { RouteDefinition } from '@solidjs/router';
 import { lazy } from 'solid-js';
 
-const URL_PREFIX = '/manga-reader';
+export const URL_PREFIX = '/manga-reader';
 
 const routes: RouteDefinition[] = [
   {

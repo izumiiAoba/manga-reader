@@ -1,9 +1,11 @@
+import { A as Link } from '@solidjs/router';
 import {
   Component, JSX, Show, For,
 } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import UrlTransformer from '$src/data/url-transformer';
 import { MangaChapter, MangaInfo } from '$src/data/use-manga-info';
+import { URL_PREFIX } from '$src/router';
 import styles from './style.module.less';
 
 type Props = {
@@ -18,7 +20,14 @@ const MangaDetailDrawer: Component<Props> = (props) => {
 
   const renderChapterList = (chapters: MangaChapter[]): JSX.Element => (
     <For each={chapters}>
-      { ({ name }) => <div class={styles.chapter}>{ name }</div> }
+      { ({ name }, index) => (
+        <Link
+          class={styles.chapter}
+          href={`${URL_PREFIX}/read/${props.info!.id}/${index()}`}
+        >
+          { name }
+        </Link>
+      ) }
     </For>
   );
 
